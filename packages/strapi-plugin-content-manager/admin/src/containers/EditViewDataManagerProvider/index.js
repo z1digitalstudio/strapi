@@ -266,7 +266,7 @@ const EditViewDataManagerProvider = ({
         });
         redirectToPreviousPage();
       } catch (err) {
-        console.error({ err });
+        console.log({ err });
         const error = get(
           err,
           ['response', 'payload', 'message', '0', 'messages', '0', 'id'],
@@ -281,7 +281,6 @@ const EditViewDataManagerProvider = ({
       }
     } catch (err) {
       const errors = getYupInnerErrors(err);
-      console.error({ err, errors });
 
       dispatch({
         type: 'SUBMIT_ERRORS',
