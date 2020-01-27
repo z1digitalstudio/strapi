@@ -1,18 +1,17 @@
 {
-  "kind": "singleType",
-  "connection": "default",
-  "collectionName": "homepage",
   "info": {
-    "name": "Home Page"
+    "name": "Homepage"
   },
   "options": {
     "increments": true,
-    "timestamps": ["created_at", "updated_at"]
+    "timestamps": true
   },
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
+      "type": "string"
     }
-  }
+  },
+  "connection": "default",
+  "kind": "singleType",
+  "collectionName": "homepages"
 }
