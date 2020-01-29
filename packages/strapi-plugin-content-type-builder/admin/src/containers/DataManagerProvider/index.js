@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useReducer, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { camelCase, get, groupBy, set, size, sortBy } from 'lodash';
+import { get, groupBy, set, size } from 'lodash';
 import {
   request,
   LoadingIndicatorPage,
@@ -32,6 +32,7 @@ import {
   getComponentsToPost,
   formatMainDataType,
   getCreatedAndModifiedComponents,
+  sortContentType,
 } from './utils/cleanData';
 
 const DataManagerProvider = ({ allIcons, children }) => {
@@ -50,6 +51,7 @@ const DataManagerProvider = ({ allIcons, children }) => {
     isLoadingForDataToBeSet,
     initialData,
     modifiedData,
+    singleTypes,
   } = reducerState.toJS();
   const { pathname } = useLocation();
   const { push } = useHistory();
@@ -79,27 +81,43 @@ const DataManagerProvider = ({ allIcons, children }) => {
         { data: componentsArray },
         { data: contentTypesArray },
       ] = await Promise.all(
-        ['components', 'content-types'].map(endPoint => {
+        [
+          'components',
+          'content-types',
+          // 'content-types?kind=collectionType',
+        ].map(endPoint => {
           return request(`/${pluginId}/${endPoint}`, {
             method: 'GET',
             signal,
           });
         })
       );
-
       const components = createDataObject(componentsArray);
-      const contentTypes = createDataObject(contentTypesArray);
+      const contentTypes = createDataObject(
+        contentTypesArray.filter(
+          contentType => contentType.schema.kind === 'collectionType'
+        )
+      );
+      const singleTypes = createDataObject(
+        contentTypesArray.filter(
+          contentType => contentType.schema.kind === 'singleType'
+        )
+      );
       const orderedComponents = orderAllDataAttributesWithImmutable({
         components,
       });
       const orderedContenTypes = orderAllDataAttributesWithImmutable({
         components: contentTypes,
       });
+      const orderedSingleTypes = orderAllDataAttributesWithImmutable({
+        components: singleTypes,
+      });
 
       dispatch({
         type: 'GET_DATA_SUCCEEDED',
         components: orderedComponents.get('components'),
         contentTypes: orderedContenTypes.get('components'),
+        singleTypes: orderedSingleTypes.get('components'),
       });
     } catch (err) {
       console.error({ err });
@@ -373,18 +391,6 @@ const DataManagerProvider = ({ allIcons, children }) => {
     });
   };
 
-  const sortedContentTypesList = sortBy(
-    Object.keys(contentTypes)
-      .map(uid => ({
-        name: uid,
-        title: contentTypes[uid].schema.name,
-        uid,
-        to: `/plugins/${pluginId}/content-types/${uid}`,
-      }))
-      .filter(obj => obj !== null),
-    obj => camelCase(obj.title)
-  );
-
   const shouldRedirect = () => {
     const dataSet = isInContentTypeView ? contentTypes : components;
 
@@ -520,7 +526,8 @@ const DataManagerProvider = ({ allIcons, children }) => {
         removeAttribute,
         removeComponentFromDynamicZone,
         setModifiedData,
-        sortedContentTypesList,
+        sortedContentTypesList: sortContentType(contentTypes),
+        sortedSingleTypesList: sortContentType(singleTypes),
         submitData,
         toggleModalCancel,
         updateSchema,

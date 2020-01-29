@@ -147,6 +147,42 @@ const data = {
         },
       },
     },
+    contentTypesToSort: {
+      'plugins::myplugins.test': {
+        uid: 'plugins::myplugins.test',
+        schema: { name: 'plugins::myplugins.test' },
+      },
+      'plugins::myplugins.btest': {
+        uid: 'plugins::myplugins.btest',
+        schema: { name: 'plugins::myplugins.btest' },
+      },
+      'plugins::myplugins.atest': {
+        uid: 'plugins::myplugins.atest',
+        schema: { name: 'plugins::myplugins.atest' },
+      },
+      'plugins::myplugins.ctest': {
+        uid: 'plugins::myplugins.ctest',
+        schema: { name: 'plugins::myplugins.ctest' },
+      },
+    },
+    singleTypesToSort: {
+      'application::homepage.homepage': {
+        uid: 'application::homepage.homepage',
+        schema: { name: 'application::homepage.homepage' },
+      },
+      'application::aboutpage.aboutpage': {
+        uid: 'application::aboutpage.aboutpage',
+        schema: { name: 'application::aboutpage.aboutpage' },
+      },
+      'application::menu.secondmenu': {
+        uid: 'application::menu.secondmenu',
+        schema: { name: 'application::menu.secondmenu' },
+      },
+      'application::menu.menu': {
+        uid: 'application::menu.menu',
+        schema: { name: 'application::menu.menu' },
+      },
+    },
     // TODO add test for component
     // componentToCreate: {
 

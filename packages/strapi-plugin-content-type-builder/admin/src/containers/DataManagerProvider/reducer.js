@@ -6,6 +6,7 @@ import retrieveComponentsFromSchema from './utils/retrieveComponentsFromSchema';
 const initialState = fromJS({
   components: {},
   contentTypes: {},
+  singleTypes: {},
   initialComponents: {},
   initialContentTypes: {},
   initialData: {},
@@ -389,6 +390,7 @@ const reducer = (state, action) => {
         .update('initialComponents', () => fromJS(action.components))
         .update('initialContentTypes', () => fromJS(action.contentTypes))
         .update('contentTypes', () => fromJS(action.contentTypes))
+        .update('singleTypes', () => fromJS(action.singleTypes))
 
         .update('isLoading', () => false);
     }

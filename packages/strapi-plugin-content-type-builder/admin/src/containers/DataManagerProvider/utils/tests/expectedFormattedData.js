@@ -96,6 +96,64 @@ const expectedData = {
     'default.nested-compo',
     'blog.quote',
   ],
+  sortedContentTypes: [
+    {
+      uid: 'plugins::myplugins.atest',
+      name: 'plugins::myplugins.atest',
+      title: 'plugins::myplugins.atest',
+      to:
+        '/plugins/content-type-builder/content-types/plugins::myplugins.atest',
+    },
+    {
+      uid: 'plugins::myplugins.btest',
+      name: 'plugins::myplugins.btest',
+      title: 'plugins::myplugins.btest',
+      to:
+        '/plugins/content-type-builder/content-types/plugins::myplugins.btest',
+    },
+    {
+      uid: 'plugins::myplugins.ctest',
+      name: 'plugins::myplugins.ctest',
+      title: 'plugins::myplugins.ctest',
+      to:
+        '/plugins/content-type-builder/content-types/plugins::myplugins.ctest',
+    },
+    {
+      uid: 'plugins::myplugins.test',
+      name: 'plugins::myplugins.test',
+      title: 'plugins::myplugins.test',
+      to: '/plugins/content-type-builder/content-types/plugins::myplugins.test',
+    },
+  ],
+  sortedSingleTypes: [
+    {
+      uid: 'application::aboutpage.aboutpage',
+      name: 'application::aboutpage.aboutpage',
+      title: 'application::aboutpage.aboutpage',
+      to:
+        '/plugins/content-type-builder/content-types/application::aboutpage.aboutpage',
+    },
+    {
+      uid: 'application::homepage.homepage',
+      name: 'application::homepage.homepage',
+      title: 'application::homepage.homepage',
+      to:
+        '/plugins/content-type-builder/content-types/application::homepage.homepage',
+    },
+    {
+      uid: 'application::menu.menu',
+      name: 'application::menu.menu',
+      title: 'application::menu.menu',
+      to: '/plugins/content-type-builder/content-types/application::menu.menu',
+    },
+    {
+      uid: 'application::menu.secondmenu',
+      name: 'application::menu.secondmenu',
+      title: 'application::menu.secondmenu',
+      to:
+        '/plugins/content-type-builder/content-types/application::menu.secondmenu',
+    },
+  ],
 
   components: [
     {

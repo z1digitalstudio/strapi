@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sortBy } from 'lodash';
+import { sortBy, camelCase, upperFirst } from 'lodash';
 import { useHistory } from 'react-router-dom';
 import { LeftMenuList, useGlobalContext } from 'strapi-helper-plugin';
 import pluginId from '../../pluginId';
@@ -29,10 +29,10 @@ function LeftMenu({ wait }) {
     contentTypes,
     isInDevelopmentMode,
     sortedContentTypesList,
+    sortedSingleTypesList,
   } = useDataManager();
   const { emitEvent, formatMessage } = useGlobalContext();
   const { push } = useHistory();
-
   const componentsData = sortBy(
     Object.keys(componentsGroupedByCategory).map(category => ({
       name: category,
@@ -88,12 +88,7 @@ function LeftMenu({ wait }) {
 
   const handleClickOpenModal = async type => {
     if (canOpenModalCreateCTorComponent()) {
-      const eventName =
-        type === 'contentType'
-          ? 'willCreateContentType'
-          : 'willCreateComponent';
-
-      emitEvent(eventName);
+      emitEvent(`willCreate${upperFirst(camelCase(type))}`);
 
       await wait();
       push({
@@ -125,6 +120,25 @@ function LeftMenu({ wait }) {
           }
         : null,
       links: sortedContentTypesList,
+    },
+    {
+      name: 'singleTypes',
+      title: {
+        id: `${pluginId}.menu.section.single-types.name.`,
+      },
+      searchable: true,
+      customLink: isInDevelopmentMode
+        ? {
+            Component: CustomLink,
+            componentProps: {
+              id: `${pluginId}.button.single-types.create`,
+              onClick: () => {
+                handleClickOpenModal('singleType');
+              },
+            },
+          }
+        : null,
+      links: sortedSingleTypesList,
     },
     {
       name: 'components',
